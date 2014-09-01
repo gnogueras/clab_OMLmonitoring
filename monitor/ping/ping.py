@@ -220,8 +220,8 @@ def verbose_ping(dest_addr, timeout = 2, count = 4):
     print
  
  
-if __name__ == '__main__':
-    verbose_ping("heise.de")
-    verbose_ping("google.com")
-    verbose_ping("a-test-url-taht-is-not-available.com")
-    verbose_ping("192.168.1.1")
+#if __name__ == '__main__':
+#    verbose_ping("heise.de")
+#    verbose_ping("google.com")
+#    verbose_ping("a-test-url-taht-is-not-available.com")
+#    verbose_ping("192.168.1.1")
