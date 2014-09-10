@@ -16,19 +16,25 @@ def run ():
     """
     oml=OMLBase("monitoringApp","CLab","CLabTestbed","tcp:flsmonitor.ilabt.iminds.be:3003")
     
-    # MP for Controlelr Ping
-    oml.addmp("icmp","node:string up:double last_check:string")
+    # MP for Controller Ping
+    oml.addmp("icmp","node:string up:boolean last_check:string")
     
     # MP for Controller Http server (website)
-    oml.addmp("http","node:string up:double last_check:string")
+    oml.addmp("http","node:string up:boolean last_check:string")
     
-    controller_ping_up = ping_ipv4_is_ok(fls.config.CLAB_CONTROLLER_IPv4)
-    controller_http_up = website_is_ok(fls.config.CLAB_CONTROLLER_URL)
-
+    controller_ping_up = True #ping_ipv4_is_ok(fls.config.CLAB_CONTROLLER_IPv4)
+    controller_http_up = True #website_is_ok(fls.config.CLAB_CONTROLLER_URL)
+    monitor_ping_up = True #ping_ipv4_is_ok(fls.config.CLAB_MONITOR_IPV4)
+    
     oml.start()
     oml.inject("icmp", ("controller", controller_ping_up, current_timestamp()))
     oml.inject("http", ("controller", controller_http_up, current_timestamp()))
+    oml.close()
+    print "DONE"
 
 def current_timestamp ():
     now=datetime.datetime.now()
     return now.strftime("%Y-%m-%d %H:%M:%S+00")
+
+if __name__ == '__main__':
+    run()
