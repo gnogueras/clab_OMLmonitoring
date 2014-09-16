@@ -1,7 +1,7 @@
 import json
 import urllib2
-from clab_monitoing import nodelist
-from clab_monitoing import config
+from couchbase_monitor import nodelist
+from couchbase_monitor import config
 
 
 def update_node_list():

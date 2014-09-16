@@ -12,6 +12,6 @@ def website_is_ok (url):
     """
     code = urllib.urlopen(url).getcode()
     if code == 200:
-        return True
+        return 1
     else:
-        return False
+        return 0

@@ -15,9 +15,9 @@ def ping_ipv4_is_ok (ipv4_dest_addr):
     """
     delay = ping.do_one(ipv4_dest_addr, ping_config.TIMEOUT)
     if delay:
-        return True
+        return 1
     else:
-        return False
+        return 0
 
 
 def ping_ipv6_is_ok (ipv6_dest_addr):
@@ -26,7 +26,7 @@ def ping_ipv6_is_ok (ipv6_dest_addr):
     """
     code = ping6.do_one(ping_config.IPV6_SRC_ADDR, ipv6_dest_addr, ping_config.TIMEOUT)
     if code == ICMP6.ICMP6.ECHO_REPLY:
-        return True
+        return 1
     else:
-        return False
+        return 0
 

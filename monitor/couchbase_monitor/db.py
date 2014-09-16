@@ -1,7 +1,7 @@
 import os
 from couchbase import Couchbase
-from clab_monitoing import config
-from clab_monitoing import util
+from couchbase_monitor import config
+from couchbase_monitor import util
 
 
 class Database(object):
