@@ -7,6 +7,7 @@ Created on Sep 5, 2014
 # Run command to add project to pythonpath
 # export PYTHONPATH=$PYTHONPATH:/home/gerard/git/clab_OMLmonitoring/monitor/
 
+# Run scripts with root permissions (imply sending icmp messages)
 
 FLS_OML_SERVER='tcp:flsmonitor.ilabt.iminds.be:3003'
 FLS_OML_DOMAIN='CLab'
