@@ -33,7 +33,7 @@ def run ():
     print "DONE " + current_timestamp()
 
 def current_timestamp ():
-    now=datetime.datetime.now()
+    now=datetime.datetime.utcnow()
     return now.strftime("%Y-%m-%d %H:%M:%S+00")
 
 if __name__ == '__main__':
