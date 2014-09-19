@@ -1,7 +1,7 @@
 import os
 from couchbase import Couchbase
-from couchbase_monitor import config
-from couchbase_monitor import util
+from couchbase_monitor.nava import config
+from couchbase_monitor.nava import util
 
 
 class Database(object):

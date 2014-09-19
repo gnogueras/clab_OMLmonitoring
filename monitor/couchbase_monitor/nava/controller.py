@@ -1,7 +1,7 @@
 import json
 import urllib2
-from couchbase_monitor import nodelist
-from couchbase_monitor import config
+from couchbase_monitor.nava import nodelist
+from couchbase_monitor.nava import config
 
 
 def update_node_list():

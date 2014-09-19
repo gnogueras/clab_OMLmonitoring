@@ -1,6 +1,6 @@
-from couchbase_monitor import controller
-from couchbase_monitor import nodelist
-from couchbase_monitor import db
+from couchbase_monitor.nava import controller
+from couchbase_monitor.nava import nodelist
+from couchbase_monitor.nava import db
 
 if __name__ == '__main__':
     controller.update_node_list()
