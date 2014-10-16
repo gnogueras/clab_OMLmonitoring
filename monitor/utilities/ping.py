@@ -1,13 +1,13 @@
 #!/usr/bin/env python
  
 """
-    A pure python ping implementation using raw socket.
+    A pure python utilities implementation using raw socket.
  
  
     Note that ICMP messages can only be sent from processes running as root.
  
  
-    Derived from ping.c distributed in Linux's netkit. That code is
+    Derived from utilities.c distributed in Linux's netkit. That code is
     copyright (c) 1989 by The Regents of the University of California.
     That code is in turn derived from code written by Mike Muuss of the
     US Army Ballistic Research Laboratory in December, 1983 and
@@ -21,13 +21,13 @@
     version 2. Provided with no warranties of any sort.
  
     Original Version from Matthew Dixon Cowles:
-      -> ftp://ftp.visi.com/users/mdc/ping.py
+      -> ftp://ftp.visi.com/users/mdc/utilities.py
  
     Rewrite by Jens Diemer:
       -> http://www.python-forum.de/post-69122.html#69122
  
     Rewrite by George Notaras:
-      -> http://www.g-loaded.eu/2009/10/30/python-ping/
+      -> http://www.g-loaded.eu/2009/10/30/python-utilities/
  
     Revision history
     ~~~~~~~~~~~~~~~~
@@ -92,7 +92,7 @@ ICMP_ECHO_REQUEST = 8 # Seems to be the same on Solaris.
 def checksum(source_string):
     """
     I'm not too confident that this is right but testing seems
-    to suggest that it gives the same answers as in_cksum in ping.c
+    to suggest that it gives the same answers as in_cksum in utilities.c
     """
     sum = 0
     countTo = (len(source_string)/2)*2
@@ -120,7 +120,7 @@ def checksum(source_string):
  
 def receive_one_ping(my_socket, ID, timeout):
     """
-    receive the ping from the socket.
+    receive the utilities from the socket.
     """
     timeLeft = timeout
     while True:
@@ -148,7 +148,7 @@ def receive_one_ping(my_socket, ID, timeout):
  
 def send_one_ping(my_socket, dest_addr, ID):
     """
-    Send one ping to the given >dest_addr<.
+    Send one utilities to the given >dest_addr<.
     """
     dest_addr  =  socket.gethostbyname(dest_addr)
  
@@ -201,11 +201,11 @@ def do_one(dest_addr, timeout):
  
 def verbose_ping(dest_addr, timeout = 2, count = 4):
     """
-    Send >count< ping to >dest_addr< with the given >timeout< and display
+    Send >count< utilities to >dest_addr< with the given >timeout< and display
     the result.
     """
     for i in xrange(count):
-        print "ping %s..." % dest_addr,
+        print "utilities %s..." % dest_addr,
         try:
             delay  =  do_one(dest_addr, timeout)
         except socket.gaierror, e:
@@ -216,7 +216,7 @@ def verbose_ping(dest_addr, timeout = 2, count = 4):
             print "failed. (timeout within %ssec.)" % timeout
         else:
             delay  =  delay * 1000
-            print "get ping in %0.4fms" % delay
+            print "get utilities in %0.4fms" % delay
     print
  
  

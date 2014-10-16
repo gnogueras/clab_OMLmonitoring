@@ -7,9 +7,9 @@
 #
 # $Id$
 #
-# Simple ICMP6 ping.
+# Simple ICMP6 utilities.
 #
-# This implementation of ping uses the ICMP echo and echo-reply packets
+# This implementation of utilities uses the ICMP echo and echo-reply packets
 # to check the status of a host. If the remote host is up, it should reply
 # to the echo probe with an echo-reply packet.
 # Note that this isn't a definite test, as in the case the remote host is up
