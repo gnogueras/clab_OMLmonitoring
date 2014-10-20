@@ -4,16 +4,14 @@ Created on Sep 2, 2014
 @author: gerard
 '''
 
-import utilities
-import utilities
-import utilities
+from  utilities import ping, ping6, ping_config
 from impacket import ICMP6
 
 def ping_ipv4_is_ok (ipv4_dest_addr):
     """
     Return TRUE if the IPv4 utilities to the destination address is successful, FALSE otherwise.
     """
-    delay = utilities.do_one(ipv4_dest_addr, ping_config.TIMEOUT)
+    delay = ping.do_one(ipv4_dest_addr, ping_config.TIMEOUT)
     if delay:
         return 1
     else:

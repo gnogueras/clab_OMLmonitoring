@@ -83,8 +83,8 @@ def ping6 (src, dst, count, timeout):
            rip = ImpactDecoder.ICMP6Decoder().decode(reply)
            
            # If the packet matches, report it to the user.
-           if ICMP6.ICMP6.ECHO_REPLY == rip.get_type():
-                   print "%d bytes from %s: icmp_seq=%d " % (rip.child().get_size()-4,dst,rip.get_echo_sequence_number())
+           #if ICMP6.ICMP6.ECHO_REPLY == rip.get_type():
+           #        print "%d bytes from %s: icmp_seq=%d " % (rip.child().get_size()-4,dst,rip.get_echo_sequence_number())
 
            time.sleep(1)
-    return rip.get_type
+    return rip.get_type()
