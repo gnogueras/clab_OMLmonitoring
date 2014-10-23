@@ -1,0 +1,198 @@
+
+-------------------------------------------------------------------------
+AVAILABILITY
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['node_name']=doc.name;
+    data['node_addr']=node_id;
+    data['timestamp']=timestamp;
+    data['current_state']=doc.curent_state;
+    data['up']=1;
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+CPU
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['node_name']=doc.name;
+    data['node_addr']=node_id;
+    data['timestamp']=timestamp;
+    data['total']=doc.cpu.num_cpus*100;
+    data['free']=doc.cpu.num_cpus*(100-doc.cpu.total_percent_usage);
+    data['available']=0;
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+STORAGE
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var bytes_converter = function (bytes, units) {
+      var unitsVal=["B","KB","MB","GB","TB"];
+      for(var i=units; i!=0; i--){
+          bytes=bytes/1024;
+        }
+    return bytes.toFixed(2);
+        //return bytes.toFixed(2)+" "+unitsVal[units];
+      }
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var total=0, used=0;
+    var devs=[];
+    var data={};
+    for (var dev in doc.disk){
+      if(dev!='size'){
+        total=total+doc.disk[dev].total;
+        used=used+doc.disk[dev].used;
+      }
+    }
+    data['node_name']=doc.name;
+    data['node_addr']=node_id;
+    data['timestamp']=timestamp;
+    data['storage']=bytes_converter(doc.disk.size,2);
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+MEMORY
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var bytes_converter = function (bytes, units) {
+      var unitsVal=["B","KB","MB","GB","TB"];
+      for(var i=units; i!=0; i--){
+          bytes=bytes/1024;
+        }
+    return bytes.toFixed(2);
+        //return bytes.toFixed(2)+" "+unitsVal[units];
+      }
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['node_name']=doc.name;
+    data['node_addr']=node_id;
+    data['timestamp']=timestamp;
+    data['total']=bytes_converter(doc.memory.virtual.total,2);
+    data['free']=bytes_converter(doc.memory.virtual.free,2);
+    data['available']=bytes_converter(doc.memory.virtual.available,2);
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+RUNNING VMS
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['node_name']=doc.name;
+    data['node_addr']=node_id;
+    data['timestamp']=timestamp;
+    data['rvm']=Object.keys(doc.slivers).length;
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+DOCS
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    emit(doc.nodeid, null);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+INFO
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var bytes_converter = function (bytes, units) {
+      var unitsVal=["B","KB","MB","GB","TB"];
+      for(var i=units; i!=0; i--){
+          bytes=bytes/1024;
+        }
+        return bytes.toFixed(2);
+        //return bytes.toFixed(2)+" "+unitsVal[units];
+    }
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var total=0, used=0;
+    var devs=[];
+    var data={};
+    for (var dev in doc.disk){
+      if(dev!='size'){
+        total=total+doc.disk[dev].total;
+        used=used+doc.disk[dev].used;
+      }
+    }
+    data['node_name']=doc.name;
+    data['node_addr']=node_id;
+    data['timestamp']=timestamp;
+    data['availability']={up:1, current_state:doc.curent_state;};
+    data['cpu']={total:doc.cpu.num_cpus*100, free:doc.cpu.num_cpus*(100-doc.cpu.total_percent_usage), available:0};
+    data['memory']={total:bytes_converter(doc.memory.virtual.total,2), free:bytes_converter(doc.memory.virtual.free,2), available:bytes_converter(doc.memory.virtual.available,2)};
+    data['storage']={storage:bytes_converter(doc.disk.size,2)};
+    data['runningvms']={rvm:Object.keys(doc.slivers).length};
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+
+
+OTHER STUFF:
+
+var get_last_check = function (timestamp) {
+    var pad = function (value) {
+        return value.toString().length == 1 ? "0" + value : value;
+    }
+    var d = new Date(timestamp * 1000);
+    return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes()) + ":" + pad(d.getUTCSeconds()) + "+00";
+}

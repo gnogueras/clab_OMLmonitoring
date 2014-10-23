@@ -1,0 +1,142 @@
+
+-------------------------------------------------------------------------
+AVAILABILITY
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['nodeid']=node_id;
+    data['timestamp']=timestamp;
+    data['up']=1;
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+CPU
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['nodeid']=node_id;
+    data['timestamp']=timestamp;
+    data['total']=doc.cpu.num_cpus;
+    data['used']=doc.cpu.total_percent_usage;
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+DISK
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var bytes_converter = function (bytes, units) {
+        var unitsVal=["B","KB","MB","GB","TB"];
+        for(var i=units; i!=0; i--){
+            bytes=bytes/1024;
+          }
+          return bytes.toFixed(2)+" "+unitsVal[units];
+    }
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var total=0, used=0;
+    var devs=[];
+    var data={};
+    for (var dev in doc.disk){
+      if(dev!='size'){
+        total=total+doc.disk[dev].total;
+        used=used+doc.disk[dev].used;
+      }
+    }
+    data['nodeid']=node_id;
+    data['timestamp']=timestamp;
+    data['total']=bytes_converter(doc.disk.size,2);
+    data['used']= (used*100/total).toFixed(2);
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+MEMORY
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var bytes_converter = function (bytes, units) {
+        var unitsVal=["B","KB","MB","GB","TB"];
+        for(var i=units; i!=0; i--){
+            bytes=bytes/1024;
+          }
+          return bytes.toFixed(2)+" "+unitsVal[units];
+    }
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var data = {};
+    data['nodeid']=node_id;
+    data['timestamp']=timestamp;
+    data['total']=bytes_converter(doc.memory.virtual.total,2);
+    data['used']=doc.memory.virtual.percent_used;
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+INFO
+-------------------------------------------------------------------------
+function (doc, meta) {
+  if(doc.type=='node_most_recent'){
+    var bytes_converter = function (bytes, units) {
+        var unitsVal=["B","KB","MB","GB","TB"];
+        for(var i=units; i!=0; i--){
+            bytes=bytes/1024;
+          }
+          return bytes.toFixed(2)+" "+unitsVal[units];
+    }
+    var node_id = doc.nodeid;
+    var timestamp = doc.server_timestamp;
+    var date = new Date(timestamp*1000);
+    var dateArray = dateToArray(date);
+    dateArray.splice(0,0,node_id);
+    var total=0, used=0;
+    var devs=[];
+    var data={};
+    for (var dev in doc.disk){
+      if(dev!='size'){
+        total=total+doc.disk[dev].total;
+        used=used+doc.disk[dev].used;
+      }
+    }
+    data['nodeid']=node_id;
+    data['timestamp']=timestamp;
+    data['availability']={up:1};
+    data['cpu']={total:doc.cpu.num_cpus, used:doc.cpu.total_percent_usage};
+    data['disk']={total:bytes_converter(doc.disk.size,2), used:(used*100/total).toFixed(2)};
+    data['memory']={total:bytes_converter(doc.memory.virtual.total,2), used:doc.memory.virtual.percent_used};
+    emit(dateArray, data);
+  }
+}
+-------------------------------------------------------------------------
