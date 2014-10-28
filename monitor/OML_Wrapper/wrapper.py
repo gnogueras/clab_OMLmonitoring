@@ -5,12 +5,12 @@ Created on Oct 16, 2014
 '''
 
 from utilities.utils import epoch_to_utc
-from configuration import config 
+from configuration import config
 from oml4py import OMLBase
 
 class OMLWrapper:
 
-    def __init__ (self, appname=config.IM_APPNAME, domain=config.IM_DOMAIN, sender=config.IM_SENDER, endpoint_uri=config.TUB_OML_SERVER):
+    def __init__ (self, appname=config.IM_APP, domain=config.DOMAIN, sender=config.SENDER, endpoint_uri=config.LOCAL_OML_SERVER):
         self.oml=OMLBase(appname, domain, sender, endpoint_uri)
     
     def addMP(self, metric, schema=None):

@@ -7,7 +7,8 @@ from couchbase import Couchbase
 from couchbase.views.iterator import View
 from orm.api import Api
 from utilities.utils import current_epoch_timestamp, unicode_normalize
-import configuration.config as config
+from configuration import config
+import collections
 
 class CouchBaseRetriever:
     
@@ -26,13 +27,8 @@ class CouchBaseRetriever:
             nodes_info[node_name]=v.value
         if metric == 'availability':
             return self.get_nodes_availability(nodes_info)
-        return nodes_info
-    
-    
-    
+        return collections.OrderedDict(sorted(nodes_info.items()))
 
-    def get_nodes_monitoring_metric_list(self, metric):                
-        return self.get_nodes_monitoring(metric).values()
     
     def get_nodes_availability(self, nodes_info):
         nodes = self.api.nodes.retrieve()
@@ -43,7 +39,7 @@ class CouchBaseRetriever:
             current_state= nodes_info[node.name]['current_state'] if node.name in nodes_info else 'UNKNOWN'
             up = 1 if current_state=='production' else 0
             nodes_availability[node.name]={'node':unicode_normalize(node.name), 'node_addr':addr, 'timestamp':timestamp, 'up':up, 'current_state':current_state}
-        return nodes_availability
+        return collections.OrderedDict(sorted(nodes_availability.items()))
     
 
     

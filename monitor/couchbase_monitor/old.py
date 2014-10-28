@@ -11,7 +11,7 @@ from utilities.utils import get_timestamp
 from orm.api import Api
 from utilities.utils import epoch_to_utc, bits_to_bytes, node_ipv6_to_name, current_timestamp, get_node_current_state
 import time
-import configuration.config as config
+import configuration.oldconfig as config
 
 class CouchBaseRetriever:
     
