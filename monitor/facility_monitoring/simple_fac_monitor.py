@@ -1,22 +1,27 @@
 '''
-Created on Sep 5, 2014
+Created on Oct 23, 2014
 
 @author: gerard
+
+INFRASTRUCTURE MONIORING FOR C-LAB
+-----------------------------------
+Simple version of the Facility Monitoring component.
+The data is sent to the Fed4FIRE OML server (iMinds) and to the local OML server.
+
+See/use fac_monitor.py
+ 
 '''
+
 from oml4py import OMLBase
-import configuration.oldconfig as config
+import configuration.config as config
 from utilities.ping_util import ping_ipv4_is_ok
 from utilities.httpserver_util import website_is_ok
 from utilities.utils import current_timestamp
 
 def run ():
-    """
-    Run the Facility Monitoring. Perform measurments and send it to FLS Server as OML Stream.
-    Uses facility_monitoring.config parameters.
-    """
 
-    oml=OMLBase(config.FM_APP, config.FM_DOMAIN, config.FM_NAME, config.FLS_OML_SERVER)
-    oml2=OMLBase(config.FM_APP, config.FM_DOMAIN, config.FM_NAME, config.LOCAL_OML_SERVER)
+    oml=OMLBase(config.FM_APP, config.DOMAIN, config.SENDER, config.FLS_OML_SERVER)
+    oml2=OMLBase(config.FM_APP, config.DOMAIN, config.SENDER, config.LOCAL_OML_SERVER)
     # MP for Controller Ping
     oml.addmp("icmp","node:string up:double last_check:string")
     oml2.addmp("icmp","node:string up:double last_check:string")
@@ -43,3 +48,4 @@ def run ():
 
 if __name__ == '__main__':
     run()
+    

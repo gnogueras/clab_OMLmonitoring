@@ -2,6 +2,18 @@
 Created on Oct 16, 2014
 
 @author: gerard
+
+OML WRAPPER FOR C-LAB
+------------------------
+Component that acts as a wrapper for the monitoring data of Community-lab retrieved from the
+CouchBase database server. It converts the data into OML streams to be injected into the configured servers.
+
+In the init methods of the OMLWrapper the parameters (application name for the injected information, 
+domain and sender for the data, and endpoint uri of the OML server). 
+The default values of the parameters are defined in the configuration file.
+
+The OML Wrapper component is used by the Infrastructure Monitor component.
+
 '''
 
 from utilities.utils import epoch_to_utc

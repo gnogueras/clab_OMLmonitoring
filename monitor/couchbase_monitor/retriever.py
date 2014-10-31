@@ -2,6 +2,14 @@
 Created on Sep 18, 2014
 
 @author: gerard
+
+COUCHBASE RETRIEVER FOR C-LAB
+-------------------------------
+This component is responsible for retrieving data from the CouchBase database serve of the Community-Lab testbed.
+The Monitoring System of Community-Lab monitors the nodes of the testbed and stored the information in a CouchBase DB.
+
+This component get this data in a useful format for this Monitoring application.
+
 '''
 from couchbase import Couchbase
 from couchbase.views.iterator import View

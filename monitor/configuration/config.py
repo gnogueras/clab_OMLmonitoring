@@ -11,6 +11,7 @@ FACILITY_APP = 'FM'
 INFRASTRUCTURE_APP = 'IM'
 FM_APP = 'monitoringApp'
 IM_APP = 'clab'
+FM_NAME='CLabTestbed'
 
 ### OML SERVERS ###
 FLS_OML_SERVER='tcp:flsmonitor.ilabt.iminds.be:3003'    # Fed4FIRE

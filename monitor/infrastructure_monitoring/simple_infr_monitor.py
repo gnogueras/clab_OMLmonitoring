@@ -2,10 +2,19 @@
 Created on Oct 23, 2014
 
 @author: gerard
+
+INFRASTRUCTURE MONIORING FOR C-LAB
+-----------------------------------
+Simple version of the Infrastructure Monitoring component.
+It only sends data to the local OML server.
+
+See/use infr_monitor.py
+ 
 '''
+
 import sys
 import debug
-from configuration import oldconfig
+from configuration import config
 from couchbase_monitor.retriever import CouchBaseRetriever
 from OML_Wrapper.wrapper import OMLWrapper
 from utilities.utils import current_timestamp
@@ -23,7 +32,7 @@ def run():
         wrapper.injectData(metric, **v)
         #debug.printData(metric, **v)
     wrapper.closeOML()
-    print "%s - Metric [%s] retrieved and injected into %s"%(current_timestamp(),metric,oldconfig.LOCAL_OML_SERVER)
+    print "%s - Metric [%s] retrieved and injected into %s"%(current_timestamp(),metric,config.LOCAL_OML_SERVER)
 
 if __name__ == '__main__':
     run()
