@@ -52,6 +52,12 @@ SCHEMA = dict(
                runningvms='node:string rvm:int32 last_check:string' 
               )
 
+# LOCALHOST PSQL DB - OML BACKEND
+DB_NAME = 'CLab'
+DB_USER = 'oml'
+DB_PASSWORD = 'fed4fire'
+DB_HOST = 'localhost'
+DB_TABLES=['clab_availability2','clab_cpu2','clab_memory2','clab_runningvms2','clab_storage2']
 
 ### DEFAULT OML SERVERS TO EXPORT MONITROING DATA ###
 # Add other servers in the list if necessary
