@@ -5,6 +5,7 @@ Created on Oct 23, 2014
 
 INFRASTRUCTURE MONIORING FOR C-LAB
 -----------------------------------
+
 Simple version of the Facility Monitoring component.
 The data is sent to the Fed4FIRE OML server (iMinds) and to the local OML server.
 

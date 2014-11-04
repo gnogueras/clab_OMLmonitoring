@@ -5,6 +5,7 @@ Created on Oct 23, 2014
 
 INFRASTRUCTURE MONIORING FOR C-LAB
 -----------------------------------
+
 Component that performs the infrastructure monitoring for the Community-Lab testbed 
 in the context of the Fed4FIRE project.
 The Monitor retrieves monitoring data about the nodes that integrate the testbed

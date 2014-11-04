@@ -2,6 +2,37 @@
 Created on Nov 3, 2014
 
 @author: gerard
+
+SCRIPT TO MANAGE THE POSTGRESQL DATABASE USED AS BACKEND OF OML SEVER
+---------------------------------------------------------------------
+
+This Python script provides some function to manage the database. The information of
+the database and tables, as well as the user and password to connect to it can be found in the configuration 
+file (configuration/config.py).
+
+By default the script works with the database "CLab" as "oml" user, and acts on the tables
+"clab_availability, clab_cpu, clab_memory, clab_runningvms, clab_storage", 
+which correspond to the infrastructure monitoring component.
+
+The script has two different uses:
+
+1. Delete duplicates: delete the duplicate entries (same node name and same last_check timestamp) found in the tables. 
+To use the script to delete duplicates, execute the command:
+
+     python psql_db_manager.py delete_duplicates
+
+2. Clear the database: clearing the database includes the previous delete duplicates operation. Moreover, this operation takes an
+integer parameter that defines the maximum number of entries to keep for each node. Thus, if there are 100 entries for the Node1, 
+and the parameter of the function is 10, the clearing operation will only keep the 10 most recent entries for Node1 and will delete the others.
+The process is repeated for every node of every table. To use the script to clear the database, execute the command:
+
+     python psql_db_manager.py clear X
+
+where X is an integer that specifies the maximum number of entries to keep for each node. If no X is specified, the default value used is 50.
+
+NOTE: to execute the script (in both cases) you need to include the /monitor directory to the Python Path. To do that, execute the command:
+     export PYTHONPATH=$PYTHONPATH:path_to_monitor_dir/monitor/   
+
 '''
 import sys
 import psycopg2

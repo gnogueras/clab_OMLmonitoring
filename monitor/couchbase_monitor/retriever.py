@@ -5,6 +5,7 @@ Created on Sep 18, 2014
 
 COUCHBASE RETRIEVER FOR C-LAB
 -------------------------------
+
 This component is responsible for retrieving data from the CouchBase database serve of the Community-Lab testbed.
 The Monitoring System of Community-Lab monitors the nodes of the testbed and stored the information in a CouchBase DB.
 

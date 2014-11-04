@@ -5,6 +5,7 @@ Created on Oct 23, 2014
 
 INFRASTRUCTURE MONIORING FOR C-LAB
 -----------------------------------
+
 Simple version of the Infrastructure Monitoring component.
 It only sends data to the local OML server.
 

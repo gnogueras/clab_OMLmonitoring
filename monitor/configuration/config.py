@@ -2,6 +2,13 @@
 Created on Oct 20, 2014
 
 @author: gerard
+
+CONFIGURATION FILE FOR THE C-LAB MONITOR OF FED4FIRE
+----------------------------------------------------------------------
+
+This file includes all the parameters used in the scripts of the package. 
+The values can be modified in this file, so no modifications are needed for the other files.
+
 '''
 
 ### OML MONITORING ###

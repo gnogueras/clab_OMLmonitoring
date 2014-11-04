@@ -10,8 +10,12 @@ def website_is_ok (url):
     """
     Return TRUE if the HTTP GET operation to the website URL returs the OK code 200. FALSE otherwise.
     """
-    code = urllib.urlopen(url).getcode()
-    if code == 200:
-        return 1
-    else:
+    try:
+        code = urllib.urlopen(url).getcode()
+        if code == 200:
+            return 1
+        else:
+            return 0
+    except:
         return 0
+    
