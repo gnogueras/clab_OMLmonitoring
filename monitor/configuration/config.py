@@ -14,8 +14,8 @@ The values can be modified in this file, so no modifications are needed for the 
 ### OML MONITORING ###
 DOMAIN = 'CLab'
 SENDER = 'CLab'
-FACILITY_APP = 'FM'
-INFRASTRUCTURE_APP = 'IM'
+FACILITY_APP = 'fac'
+INFRASTRUCTURE_APP = 'infr'
 FM_APP = 'monitoringApp'
 IM_APP = 'clab'
 FM_NAME='CLabTestbed'
